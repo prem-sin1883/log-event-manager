@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+		<Property name="logPath">./logs</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="RollingFile" fileName="${logPath}/logtest.txt"
+			filePattern="${logPath}/logtest-%d{yyyy-MM-dd}-%i.log" immediateFlush="true" append="false">
+			<PatternLayout>
+				<pattern>%m%n</pattern>
+			</PatternLayout>
+			
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1024 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="root" level="info" additivity="false">
+			<appender-ref ref="RollingFile" level="info" />
+		</Logger>
+		
+		<Logger name="org.hibernate" level="OFF" additivity="false">
+			<appender-ref ref="RollingFile" level="OFF" />
+		</Logger>
+		
+		<Logger name="com.zaxxer.hikari" level="OFF" additivity="false">
+			<appender-ref ref="RollingFile" level="OFF" />
+		</Logger>
+		
+		<Logger name="org.springframework" level="OFF" additivity="false">
+			<appender-ref ref="RollingFile" />
+		</Logger>
+		
+		<Logger name="hsqldb.db" level="OFF" additivity="false">
+			<appender-ref ref="RollingFile" />
+		</Logger>	
+	</Loggers>
+</Configuration>
